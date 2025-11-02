@@ -1,35 +1,26 @@
 package Print;
+import java.util.*;
+import model.Book;
+import model.Borrower;
 
+public class LoanAble implements BookListPrint {
+    private final List<Book> allBooks;
+    private final Map<Borrower, List<Book>> loanDB;
 
-/**
- * LoanAble 클래스의 설명을 작성하세요.
- *
- * @author (작성자 이름)
- * @version (버전 번호 또는 작성한 날짜)
- */
-public class LoanAble
-{
-    // 인스턴스 변수 - 다음의 예제를 사용자에 맞게 변경하세요.
-    private int x;
-
-    /**
-     * LoanAble 클래스의 객체 생성자
-     */
-    public LoanAble()
-    {
-        // 인스턴스 변수 초기화
-        x = 0;
+    public LoanAble(List<Book> allBooks, Map<Borrower, List<Book>> loanDB) {
+        this.allBooks = allBooks;
+        this.loanDB = loanDB;
     }
-
-    /**
-     * 예제 메소드 - 이 주석을 사용자에 맞게 바꾸십시오
-     *
-     * @param  y  메소드의 샘플 파라미터
-     * @return    x 더하기 y의 결과값을 반환
-     */
-    public int sampleMethod(int y)
-    {
-        // 여기에 코드를 작성하세요.
-        return x + y;
+    private boolean isLoaned(Book b) {
+        for (List<Book> list : loanDB.values())
+            if (list.contains(b)) return true;
+        return false;
+    }
+    @Override
+    public void print() {
+        System.out.println("== LoanAble (대출 가능 목록) ==");
+        for (Book b : allBooks)
+            if (!isLoaned(b)) System.out.println(b);
+        System.out.println();
     }
 }

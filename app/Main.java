@@ -1,8 +1,8 @@
 package app;
 import java.util.*;
 import model.*;
-import add.*;
-import print.*;
+import Add.*;
+import Print.*;
 
 public class Main {
     public static void main(String[] args) {

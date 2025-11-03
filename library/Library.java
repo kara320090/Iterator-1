@@ -20,11 +20,4 @@ public class Library {
 
     public ArrayList<Book> getBooks() { return books; }
     public String getName() { return name; }
-
-    public void printAllBooks() {
-        System.out.println("📚 " + name + "의 도서 목록");
-        for (Book b : books) {
-            System.out.println(b);
-        }
-    }
 }

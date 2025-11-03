@@ -4,19 +4,24 @@ import library.*;
 import function.*;
 
 /**
- * Main 클래스 - 도서관 시스템 실행 시작점
+ * 도서관 시스템 실행 및 메뉴 처리를 담당합니다.
  *
  * @author iteration#1 1팀
- * @version (2025.11.03)
- *
+ * @version 2025.11.03
  */
 public class Main {
     public static void main(String[] args) {
+        // 도서관 객체 생성
         Library library = new Library("도서관");
+
+        // 이용자 목록 및 대출 내역 관리
         HashSet<Borrower> borrowerSet = new HashSet<Borrower>();
         HashSet<String> loanedBooks = new HashSet<String>();
+
+        // 사용자 입력
         Scanner sc = new Scanner(System.in);
 
+        // 메인 메뉴 루프
         while (true) {
             System.out.println("\n===== " + library.getName() + " 시스템 =====");
             System.out.println("1. 새로운 이용자 등록");

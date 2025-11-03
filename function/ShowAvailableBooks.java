@@ -1,21 +1,23 @@
 package function;
 
+import java.util.TreeSet;
 import java.util.ArrayList;
-import model.*;
-import database.*;
+import java.util.HashSet;
+import library.*;
 
-/**
- * ShowAvailableBooks 클래스
- * 
- * 대출 가능한 도서를 화면에 출력한다.
- */
 public class ShowAvailableBooks {
-    public static void run(ArrayList<Book> books, LoanMap loanMap) {
-        System.out.println("[대출 가능한 도서 목록]");
+    public static void run(ArrayList<Book> books, HashSet<String> loanedBooks) {
+        TreeSet<String> available = new TreeSet<String>();
+
         for (Book b : books) {
-            if (!loanMap.isLoaned(b.getCatalogueNumber())) {
-                System.out.println(b);
+            if (!loanedBooks.contains(b.getCatalogueNumber())) {
+                available.add(b.toString());
             }
+        }
+
+        System.out.println("[대출 가능한 도서 목록]");
+        for (String s : available) {
+            System.out.println(s);
         }
     }
 }

@@ -1,18 +1,13 @@
 import java.util.Scanner;
-import model.*;
-import database.*;
+import java.util.HashSet;
+import library.*;
 import function.*;
 
-/**
- * Main 클래스
- * 
- * 프로그램의 진입점. 메뉴를 통해 이용자 등록, 도서 대출, 대출 가능 도서 조회 기능을 제공한다.
- */
 public class Main {
     public static void main(String[] args) {
-        Library library = new Library("선문대 중앙도서관");
-        LibDB<Borrower> borrowerDB = new LibDB<Borrower>();
-        LoanMap loanMap = new LoanMap();
+        Library library = new Library("성균관도서관");
+        HashSet<Borrower> borrowerSet = new HashSet<Borrower>();
+        HashSet<String> loanedBooks = new HashSet<String>();
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -27,9 +22,9 @@ public class Main {
 
             if (sel.equals("0")) break;
             switch (sel) {
-                case "1": AddUser.run(borrowerDB, sc); break;
-                case "2": LoanBook.run(library.getBooks(), borrowerDB, loanMap, sc); break;
-                case "3": ShowAvailableBooks.run(library.getBooks(), loanMap); break;
+                case "1": AddUser.run(borrowerSet, sc); break;
+                case "2": LoanBook.run(library.getBooks(), borrowerSet, loanedBooks, sc); break;
+                case "3": ShowAvailableBooks.run(library.getBooks(), loanedBooks); break;
                 case "4": library.printAllBooks(); break;
                 default : System.out.println("잘못된 입력입니다.");
             }

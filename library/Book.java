@@ -1,14 +1,5 @@
-package model;
+package library;
 
-/**
- * Book 클래스
- * 
- * 각 도서는 고유한 분류번호(catalogueNumber), 제목(title), 저자(author)를 가진다.
- * Library 클래스에 집약(aggregation) 관계로 포함된다.
- *
- * @author (PBL#1)
- * @version (2025.11.03)
- */
 public class Book {
     private String catalogueNumber;
     private String title;

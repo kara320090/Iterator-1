@@ -1,14 +1,7 @@
-package model;
+package library;
 
 import java.util.ArrayList;
 
-/**
- * Library 클래스
- * 
- * 도서관의 이름(name)과 여러 도서(Book) 객체를 관리한다.
- * 도서관은 ArrayList<Book>을 통해 여러 도서를 집약(aggregation) 관계로 보유한다.
- * 도서관이 사라져도 Book 객체는 독립적으로 존재할 수 있다.
- */
 public class Library {
     private String name;
     private ArrayList<Book> books = new ArrayList<Book>();

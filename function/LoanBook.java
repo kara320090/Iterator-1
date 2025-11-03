@@ -5,6 +5,12 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import library.*;
 
+/**
+ * LoanBook 클래스 - 도서 대출 처리
+ *
+ * @author iteration#1 1팀
+ * @version 2025.11.03
+ */
 public class LoanBook {
     public static void run(ArrayList<Book> books, HashSet<Borrower> borrowerSet, HashSet<String> loanedBooks, Scanner sc) {
         System.out.print("도서 catalogueNumber: ");

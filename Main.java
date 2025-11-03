@@ -3,6 +3,12 @@ import java.util.HashSet;
 import library.*;
 import function.*;
 
+/**
+ * Main 클래스 - 도서관 시스템 실행 시작점
+ *
+ * @author iteration#1 1팀
+ * @version 2025.11.03
+ */
 public class Main {
     public static void main(String[] args) {
         Library library = new Library("선문대 중앙도서관");
@@ -20,6 +26,7 @@ public class Main {
             String sel = sc.nextLine();
 
             if (sel.equals("0")) break;
+
             switch (sel) {
                 case "1": AddUser.run(borrowerSet, sc); break;
                 case "2": LoanBook.run(library.getBooks(), borrowerSet, loanedBooks, sc); break;

@@ -10,7 +10,7 @@ import function.*;
  */
 public class Main {
     public static void main(String[] args) {
-        Library library = new Library("성균관도서관");
+        Library library = new Library("선문대 중앙도서관");
         LibDB<Borrower> borrowerDB = new LibDB<Borrower>();
         LoanMap loanMap = new LoanMap();
         Scanner sc = new Scanner(System.in);

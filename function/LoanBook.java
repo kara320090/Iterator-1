@@ -9,7 +9,7 @@ import library.*;
  * LoanBook 클래스 - 도서 대출 처리
  *
  * @author iteration#1 1팀
- * @version 2025.11.03
+ * @version (2025.11.03)
  */
 public class LoanBook {
     public static void run(ArrayList<Book> books, HashSet<Borrower> borrowerSet, HashSet<String> loanedBooks, Scanner sc) {

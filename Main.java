@@ -7,11 +7,12 @@ import function.*;
  * Main 클래스 - 도서관 시스템 실행 시작점
  *
  * @author iteration#1 1팀
- * @version 2025.11.03
+ * @version (2025.11.03)
+ *
  */
 public class Main {
     public static void main(String[] args) {
-        Library library = new Library("선문대 중앙도서관");
+        Library library = new Library("도서관");
         HashSet<Borrower> borrowerSet = new HashSet<Borrower>();
         HashSet<String> loanedBooks = new HashSet<String>();
         Scanner sc = new Scanner(System.in);

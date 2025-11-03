@@ -4,7 +4,7 @@ package library;
  * Borrower 클래스 - 도서 이용자 정보 관리
  *
  * @author iteration#1 1팀
- * @version 2025.11.03
+ * @version (2025.11.03)
  */
 public class Borrower {
     private String id;

@@ -9,7 +9,7 @@ import library.*;
  * ShowAvailableBooks 클래스 - 대출 가능한 도서 출력
  *
  * @author iteration#1 1팀
- * @version 2025.11.03
+ * @version (2025.11.03)
  */
 public class ShowAvailableBooks {
     public static void run(ArrayList<Book> books, HashSet<String> loanedBooks) {

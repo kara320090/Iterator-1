@@ -8,7 +8,7 @@ import library.*;
  * AddUser 클래스 - 이용자 등록 처리
  *
  * @author iteration#1 1팀
- * @version 2025.11.03
+ * @version (2025.11.03)
  */
 public class AddUser {
     public static void run(HashSet<Borrower> borrowerSet, Scanner sc) {

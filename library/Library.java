@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Library 클래스 - 도서관 이름 및 보유 도서 관리
  *
  * @author iteration#1 1팀
- * @version 2025.11.03
+ * @version (2025.11.03)
  */
 public class Library {
     private String name;

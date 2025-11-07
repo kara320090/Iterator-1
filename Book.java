@@ -53,9 +53,12 @@ public class Book implements Comparable<Book>
         return this.state;
     }
     
+    /** 목록번호(catalogueNumber) 기준으로 책 객체를 오름차순 정렬하기 위한 메소드이다.
+     *
+     */
     @Override
     public int compareTo(Book other) {
-        return this.title.compareTo(other.title); // 제목 기준 오름차순 정렬
+        return this.catalogueNumber.compareTo(other.catalogueNumber); 
     }
     
 }

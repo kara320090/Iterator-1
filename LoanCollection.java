@@ -84,7 +84,7 @@ public class LoanCollection {
      * 
      */
     public void showAvailableBookList(ArrayList<Book> books) {
-        TreeSet<Book> sortedBooks = new TreeSet<>(books); // 자동 정렬됨
+        TreeSet<Book> sortedBooks = new TreeSet<>(books); // 재정의한 정렬기준 메소드로 자동 정렬된다. Book클래스의 compareTo(Book other) 메소드 확인하기.
     
         System.out.println("=== 대출 가능한 책 목록 ===");
         for (Book book : sortedBooks) {
@@ -100,7 +100,7 @@ public class LoanCollection {
      * 예약이나 미소장 등 다양한 상황에 대한 맞춤이 아니므로 필요할 경우 이후 변경이 필요하다.
      */
     public void showUnavailableBookList(ArrayList<Book> books) {
-        TreeSet<Book> sortedBooks = new TreeSet<>(books); // 자동 정렬됨
+        TreeSet<Book> sortedBooks = new TreeSet<>(books); // 재정의한 정렬기준 메소드로 자동 정렬된다. Book클래스의 compareTo(Book other) 메소드 확인하기.
     
         System.out.println("=== 대출 중인 책 목록 ===");
         for (Book book : sortedBooks) {

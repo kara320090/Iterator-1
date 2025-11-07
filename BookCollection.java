@@ -3,10 +3,10 @@ import java.util.ArrayList;
 
 /**
  * 책 관리(등록, 삭제 등)를 위한 동작을 가지고 있는 클래스이다
- * 책을 객체 단위로 생성하며 이를 ArrayList 형태로 저장하여 DataBase를 구축한다.
+ * 책을 객체 단위로 생성하며 이를 ArrayList 형태로 저장하여 책 객체들을 관리한다.
  * 
  * @author (작성자 이름)
- * @version (2025.11.05)
+ * @version (2025.11.08)
  */
 public class BookCollection
 {

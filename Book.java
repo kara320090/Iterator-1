@@ -4,7 +4,7 @@
  * 한개의 제목, 한개 이상의 저자, 한개의 고유번호, 상태(대출중/대출가능)가지고 있는 Book 객체를 생성한다.
  *
  * @author (작성자 이름)
- * @version (2025.11.05)
+ * @version (2025.11.08)
  */
 public class Book implements Comparable<Book>
 {

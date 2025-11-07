@@ -4,7 +4,7 @@
  * 이름과 고유번호를 가진다.
  *
  * @author (작성자 이름)
- * @version (2025.11.05)
+ * @version (2025.11.08)
  */
 public class Borrower
 {   

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeSet;
+import java.util.Iterator;
 
 /**
  * 대출 작업에 사용하는 동작들이 들어있는 클래스.
@@ -65,16 +66,16 @@ public class LoanCollection {
     public void returnBook() {
         System.out.print("반납할 책의 고유번호: ");
         String catalogueNumber = scan.nextLine();
-    
-        for (Loan loan : loanDB) {
-            if (loan.getBook().getCatalogueNumber().equals(catalogueNumber)) {
-                loan.getBook().changeStatus(true); // 책 상태를 대출 가능으로 변경
-                loanDB.remove(loan); // 대출 기록에서 제거
+        Iterator<Loan> iterator = loanDB.iterator();
+        while (iterator.hasNext()) {
+            Loan temploan = iterator.next();
+            if (temploan.getBook().getCatalogueNumber().equals(catalogueNumber)) {
+                temploan.getBook().changeStatus(true);
+                iterator.remove(); // 삭제
                 System.out.println("반납이 완료되었습니다.");
                 return;
             }
         }
-    
         System.out.println("해당 책은 대출중이 아닙니다.");
     }
     

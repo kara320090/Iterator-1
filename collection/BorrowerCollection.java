@@ -34,7 +34,7 @@ public class BorrowerCollection
      */
     public void register(){
         System.out.println("추가할 이용자의 이름과 번호를 입력해주세요.");
-      
+    
         System.out.print("이름: ");
         String name = scan.nextLine();
         
@@ -54,8 +54,8 @@ public class BorrowerCollection
      */
     public Borrower findBorrowerNumber(int number){
         for(Borrower tempBorrowerN:this.borrowers){
-            if(tempBorrowerN.getNumber() == number ){
-                return tempBorrowerN;}
+          if(tempBorrowerN.getNumber() == number ){
+            return tempBorrowerN;}
         }return null;
     }
 }

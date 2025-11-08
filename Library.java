@@ -29,6 +29,7 @@ public class Library
             System.out.println("4. 책 1권 반납");
             System.out.println("5. 대출중 책 목록 출력");
             System.out.println("6. 대출가능 책 목록 출력");
+            System.out.println("7. 책 검색");
             System.out.println("0. 종료");
             System.out.print("선택하세요: ");
             
@@ -53,6 +54,9 @@ public class Library
                     break;
                 case 6:// 대출 가능한 책을 화면에 표시 //
                     loanBook.showAvailableBookList(bookDB.getBooks());
+                    break;
+                case 7:// 전체 목록 출력 후 특정 책 검색 //
+                    loanBook.searchBook();
                     break;
                 case 0:// 프로그램 종료 //
                     on_off = false;

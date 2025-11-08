@@ -12,7 +12,7 @@ public class Book implements Comparable<Book>
     private String title;
     private String author;
     private String catalogueNumber;
-    private Boolean state = true;  //True는 대출 가능, False는 대출 불가능을 의미한다.
+    private Boolean state = true;  //True는 대출 가능, False는 대출 중을 의미한다. null은 미소장으로 정의할 수 있다.
     
     /** Book 클래스의 객체 생성자이다.
      * 제목, 저자, 목록 번호를 받아 책(객체)를 생성하는 동작을 수행한다.
@@ -62,4 +62,10 @@ public class Book implements Comparable<Book>
         return this.catalogueNumber.compareTo(other.catalogueNumber); 
     }
     
+    /**
+     * 책의 제목을 반환한다.
+     */
+    public String getTitle(){
+        return this.title;
+    }
 }

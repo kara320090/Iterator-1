@@ -15,7 +15,7 @@ public class Loan
 {
     private Book book;
     private Borrower borrower;
-    private int loanRule = 15; // 대출 기간을 저장해두는 변수이다. 초기값 = 15일
+    private final int loanRule = 15; // 대출 기간을 저장해두는 변수이다. 초기값 = 15일
     private Calendar nowDay;
     private Calendar returnDay;
     
@@ -49,6 +49,9 @@ public class Loan
     public Book getBook() {
         return this.book;
     }
+    /** 이용자 객체를 반환하는 메소드이다.
+     * 
+     */
     public Borrower getBorrower(){
         return this.borrower;
     }

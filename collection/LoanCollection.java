@@ -61,12 +61,17 @@ public class LoanCollection {
             System.out.println("해당 이용자를 찾을 수 없습니다.");
             return;
         }
-
-        Loan loan = new Loan(book, borrower);
-        loanDB.add(loan);
-
-        System.out.println("대출이 완료되었습니다!");
-        System.out.println("반납 예정일: " + loan.getReturnDate().getTime());
+        
+        if(borrower.check()){
+            Loan loan = new Loan(book, borrower);
+            borrower.loanCount();
+            loanDB.add(loan);
+            System.out.println("대출이 완료되었습니다!");
+            System.out.println("반납 예정일: " + loan.getReturnDate().getTime());
+        }else if(!borrower.check()){
+            System.out.println("대출 한도에 도달했습니다. 더는 대출할 수 없습니다.");
+            System.out.println("책을 반납하신 이후 추가적으로 대출할 수 있습니다.");
+        }
     }
     
     /** 책 반납 기능을 수행하는 메소드
@@ -80,6 +85,7 @@ public class LoanCollection {
             Loan temploan = iterator.next();
             if (temploan.getBook().getCatalogueNumber().equals(catalogueNumber)) {
                 temploan.getBook().changeStatus(true);
+                temploan.getBorrower().returnCount();
                 iterator.remove(); // 삭제
                 System.out.println("반납이 완료되었습니다.");
                 return;
@@ -99,9 +105,9 @@ public class LoanCollection {
         for (Book book : sortedBooks) {
             if (book.check()) {
                 book.display();
-                System.out.println("------------------------");
             }
         }
+        System.out.println("------------------------");
     }
     
     /** 대출 불가능한 책 목록을 오름차순으로 출력하는 메소드이다.
@@ -115,8 +121,57 @@ public class LoanCollection {
         for (Book book : sortedBooks) {
             if (!book.check()) {
                 book.display();
-                System.out.println("------------------------");
             }
+        }
+        System.out.println("------------------------");
+    }
+    
+    /** 책을 검색하는 메소드이다.
+     * 기능 1. 책 목록을 대출가능, 불가능과 책 정보(제목,저자,고유번호)로 출력한다.
+     * 기능 2. 검색할 책의 제목을 입력받고 bookDB에서 동일한 제목이 포함된 객체들을 가져온 후 책의 대출 여부와 정보(제목,저자,고유번호)를 출력한다.
+     * 기능 3. 메인 메뉴로 돌아간다.
+     */
+    public void searchBook(){
+        while(true){
+        System.out.println("1. 전체 목록 출력");
+        System.out.println("2. 바로 검색");
+        System.out.println("3. 뒤로가기");
+        System.out.print("선택하세요: ");
+            
+        int choice = scan.nextInt();
+        scan.nextLine();//버퍼 제거
+        switch(choice){
+            case 1:
+                System.out.println("-----도서관에서 보유중인 책 목록입니다.-----");
+                for (Book book:bookDB.getBooks()){
+                    System.out.print(book.check() ? "[대출 가능] " : "[대출 중] ");
+                    book.display();
+                }
+                System.out.println("------------------------");
+                break;
+            case 2:
+                System.out.print("검색할 책의 제목: ");
+                String title = scan.nextLine();
+                boolean find = false; //검색한 책을 찾으면 true, 못찾으면 false로 사용한다. 검색 완료 여부를 판단하기 위해 사용한다.
+                System.out.println("-----검색 결과-----");
+                for(Book book:bookDB.getBooks()){
+                    if(book.getTitle().contains(title)){
+                        System.out.print(book.check() ? "[대출 가능] " : "[대출 중] ");
+                        book.display();
+                        find=true;
+                    }
+                }
+                if(!find){
+                    System.out.println("해당 책은 없습니다.");
+                }
+                break;
+            case 3:
+                System.out.println("메인메뉴로 돌아갑니다.");
+                return;
+            default:
+                System.out.println("잘못된 입력입니다.");
+                break;
+        }
         }
     }
 }

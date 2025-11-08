@@ -1,3 +1,9 @@
+package collection;
+
+import object.Book;
+import object.Borrower;
+import object.Loan;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 

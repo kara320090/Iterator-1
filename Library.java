@@ -1,3 +1,7 @@
+import collection.BookCollection;
+import collection.BorrowerCollection;
+import collection.LoanCollection;
+
 import java.util.Scanner;
 /**
  * Library Application 의 메뉴를 담당하는 클래스이다.

@@ -1,5 +1,12 @@
+package collection;
+
+import object.Book;
+import object.Borrower;
+import object.Loan;
+
 import java.util.Scanner;
 import java.util.ArrayList;
+
 
 /**
  * 책 관리(등록, 삭제 등)를 위한 동작을 가지고 있는 클래스이다

@@ -1,4 +1,7 @@
+package object;
 import java.util.Calendar;
+
+
 /**
  * 대출을 위한 클래스이다. 
  * 책 객체, 이용자 객체를 사용하며 대출 기간을 자체적으로 가지고 있다.

@@ -12,7 +12,7 @@ public class Borrower
     private String name;
     private int number;
     private int bookLoanCount = 0;
-    private final int bookLoanCount_MAX = 15;
+    private final int bookLoanCount_MAX = 10;
     /** Borrower 클래스의 객체 생성자이다.
      * 이름, 고유번호를 받아 이용자(객체)를 생성한다.
      */

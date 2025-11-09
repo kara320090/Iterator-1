@@ -90,8 +90,11 @@ public class LoanCollection {
                 System.out.println("반납이 완료되었습니다.");
                 return;
             }
+            else if(!iterator.hasNext()){
+                System.out.println("해당 책은 대출중이 아닙니다.");
+                return;
+            }
         }
-        System.out.println("해당 책은 대출중이 아닙니다.");
     }
     
     /** 대출 가능한 책 목록을 오름차순으로 출력하는 메소드이다.

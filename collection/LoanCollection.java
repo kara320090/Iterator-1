@@ -39,29 +39,28 @@ public class LoanCollection {
      * 책의 고유번호와 이용자의 고유번호를 입력받아 대출 가능한 경우 Loan 객체를 생성하고 리스트에 저장한다.
      */
     public void loan() {
-        System.out.print("대출할 책의 고유번호: ");
-        String catalogueNumber = scan.nextLine();
-        Book book = bookDB.findBookCatalogueNumber(catalogueNumber);
-
-        if (book == null) {
-            System.out.println("해당 책을 찾을 수 없습니다.");
-            return;
-        }
-
-        if (!book.check()) {
-            System.out.println("해당 책은 현재 대출 중입니다.");
-            return;
-        }
-
         System.out.print("이용자의 고유번호: ");
         int borrowerNumber = Integer.parseInt(scan.nextLine());
         Borrower borrower = userDB.findBorrowerNumber(borrowerNumber);
-
+        
         if (borrower == null) {
             System.out.println("해당 이용자를 찾을 수 없습니다.");
             return;
         }
         
+        System.out.print("대출할 책의 고유번호: ");
+        String catalogueNumber = scan.nextLine();
+        Book book = bookDB.findBookCatalogueNumber(catalogueNumber);
+        
+        if (book == null) {
+            System.out.println("해당 책을 찾을 수 없습니다.");
+            return;
+        }
+        if (!book.check()) {
+            System.out.println("해당 책은 현재 대출 중입니다.");
+            return;
+        }
+
         if(borrower.check()){
             Loan loan = new Loan(book, borrower);
             borrower.loanCount();

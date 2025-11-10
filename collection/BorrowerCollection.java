@@ -29,8 +29,9 @@ public class BorrowerCollection
         this.borrowers = new ArrayList<>();
     }
     
-    /**책 등록 메소드이다.
-     * 메소드가 실행되면 Scanner로 제목, 저자, 고유번호의 값을 받아서 객체를 생성하고 ArrayList에 저장하여 관리할 수 있도록 한다.
+    /**이용자 등록 메소드이다.
+     * 메소드가 실행되면 Scanner로 이름, 고유번호의 값을 받아서 객체를 생성하고 ArrayList에 저장하여 관리할 수 있도록 한다.
+     * 등록 시(객체 생성 전) findBorrowerNumber 메소드를 이용하여 입력받은 number가 DB에 이미 저장되어있는지 확인하고 중복 등록을 방지한다.
      */
     public void register(){
         System.out.println("추가할 이용자의 이름과 번호를 입력해주세요.");
@@ -42,10 +43,14 @@ public class BorrowerCollection
         int number = scan.nextInt();
         scan.nextLine();//버퍼 제거
         
-        Borrower borrower = new Borrower(name, number);
-        this.borrowers.add(borrower);
+        if(!findBorrowerNumber(number).equals(number)){
+            Borrower borrower = new Borrower(name, number);
+            this.borrowers.add(borrower);
         
-        System.out.println("이용자: "+name+", 고유번호: "+number+" 를 등록완료 했습니다.");
+            System.out.println("이용자: "+name+", 고유번호: "+number+" 를 등록완료 했습니다.");
+        }else{
+            System.out.println("해당 고유번호은 이미 등록되어 있습니다. 다른 고유번호를 사용해주세요.");
+        }
     }
     /** 고유번호를 사용해서 이용자를 찾는 메소드이다.
      * 메소드가 실행되면 받아온 이용자 리스트에서 이용자 객체를 하나씩 꺼내고 

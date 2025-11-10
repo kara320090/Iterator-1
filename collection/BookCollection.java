@@ -31,6 +31,7 @@ public class BookCollection
     
     /** 책 등록 메소드이다.
      * 메소드가 실행되면 Scanner로 제목, 저자, 고유번호의 값을 받아서 객체를 생성하고 ArrayList에 저장하여 관리할 수 있도록 한다.
+     * 등록 시(객체 생성 전) findBookCatalogueNumber 메소드를 이용하여 입력 받은 catalogueNumber가 DB에 이미 저장되어있는지 확인하고 중복 등록을 방지한다.
      */
     public void register(){
         System.out.println("추가할 책의 제목, 저자, 목록번호를 입력해주세요.");
@@ -42,10 +43,14 @@ public class BookCollection
         System.out.print("고유번호: ");
         String catalogueNumber = scan.nextLine();
         
-        Book book = new Book(title, author, catalogueNumber);
-        this.books.add(book);
-        
-        System.out.println("제목: "+title+", 저자: "+author+", 목록번호: "+catalogueNumber+" 를 등록완료 했습니다.");
+        if(!findBookCatalogueNumber(catalogueNumber).equals(catalogueNumber)){
+            Book book = new Book(title, author, catalogueNumber);
+            this.books.add(book);
+            
+            System.out.println("제목: "+title+", 저자: "+author+", 목록번호: "+catalogueNumber+" 를 등록완료 했습니다.");
+        }else{
+            System.out.println("해당 고유번호은 이미 등록되어 있습니다. 다른 고유번호를 사용해주세요.");
+        }
     }
     /** 목록번호를 사용해서 책을 찾는 메소드이다.
      * 메소드가 실행되면 받아온 책 리스트에서 책 객체를 하나씩 꺼내고 

@@ -18,6 +18,7 @@ public class Loan
     private final int loanRule = 15; // 대출 기간을 저장해두는 변수이다. 초기값 = 15일
     private Calendar nowDay;
     private Calendar returnDay;
+    private Calendar returnNowDay;
     
     /** 책의 대출 객체를 생성하는 메소드이다.
      * 객체를 생성하면서 반납일자를 계산하는 메소드를 같이 실행하여 저장한다.
@@ -54,5 +55,23 @@ public class Loan
      */
     public Borrower getBorrower(){
         return this.borrower;
+    }
+    /** 책이 반납된 시점에 실행하여 실제로 책이 반납된 일자를 저장하는 메소드이다.
+     * 
+     */
+    public void setReturnNowDay(){
+        this.returnNowDay = Calendar.getInstance();
+    }
+    /** 책이 실제로 반납된 일자를 반환하는 메소드이다.
+     * 
+     */
+    public Calendar getReturnNowDayDate(){
+        return this.returnNowDay;
+    }
+    /** 책의 대출 일자를 반환하는 메소드이다.
+     * 
+     */
+    public Calendar getNowDay(){
+        return nowDay;
     }
 }

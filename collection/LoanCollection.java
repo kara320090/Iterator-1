@@ -66,6 +66,7 @@ public class LoanCollection {
             borrower.loanCount();
             loanDB.add(loan);
             System.out.println("대출이 완료되었습니다!");
+            System.out.println("대출일: " + loan.getNowDay().getTime());
             System.out.println("반납 예정일: " + loan.getReturnDate().getTime());
         }else if(!borrower.check()){
             System.out.println("대출 한도에 도달했습니다. 더는 대출할 수 없습니다.");
@@ -85,6 +86,10 @@ public class LoanCollection {
             if (temploan.getBook().getCatalogueNumber().equals(catalogueNumber)) {
                 temploan.getBook().changeStatus(true);
                 temploan.getBorrower().returnCount();
+                System.out.println("대출일: " + temploan.getNowDay().getTime());
+                System.out.println("반납 예정일: " + temploan.getReturnDate().getTime());
+                temploan.setReturnNowDay();
+                System.out.println("반납일: "+temploan.getReturnNowDayDate().getTime());
                 iterator.remove(); // 삭제
                 System.out.println("반납이 완료되었습니다.");
                 return;

@@ -20,6 +20,9 @@ public class Library
         BookCollection bookDB = new BookCollection(scan);
         LoanCollection loanBook = new LoanCollection(scan,bookDB,userDB);
         
+        bookDB.addSampleBooks();
+        userDB.addSampleBorrowers();
+        
         boolean on_off = true;
         while(on_off){
             System.out.println("=== 도서관 메뉴 ===");

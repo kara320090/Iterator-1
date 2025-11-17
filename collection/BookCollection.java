@@ -43,7 +43,7 @@ public class BookCollection
         System.out.print("고유번호: ");
         String catalogueNumber = scan.nextLine();
         
-        if(!findBookCatalogueNumber(catalogueNumber).equals(catalogueNumber)){
+        if(findBookCatalogueNumber(catalogueNumber)==null){
             Book book = new Book(title, author, catalogueNumber);
             this.books.add(book);
             
@@ -68,5 +68,22 @@ public class BookCollection
      */
     public ArrayList<Book> getBooks() {
         return this.books;
+    }
+    
+    /**
+     * 임시 데이터셋
+     */
+    public void addSampleBooks() {
+        books.add(new Book("자바의 정석", "남궁성", "B001"));
+        books.add(new Book("파이썬 완벽 가이드", "이강성", "B002"));
+        books.add(new Book("자바의 정석", "남궁성", "B003")); // 동일 제목 테스트용
+        books.add(new Book("C언어 기초", "김철수", "B004"));
+        books.add(new Book("자료구조", "박지민", "B005"));
+        
+        books.add(new Book("Java Programming", "홍길동", "B01"));
+        books.add(new Book("Software Analysis and Design", "profsHwang", "B02"));
+        books.add(new Book("명품 자바프로그래밍", "황기태", "B03"));
+        books.add(new Book("소프트웨어테스트", "profsHwang", "B04"));
+        
     }
 }

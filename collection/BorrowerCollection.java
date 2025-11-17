@@ -43,7 +43,7 @@ public class BorrowerCollection
         int number = scan.nextInt();
         scan.nextLine();//버퍼 제거
         
-        if(!findBorrowerNumber(number).equals(number)){
+        if(findBorrowerNumber(number)==null){
             Borrower borrower = new Borrower(name, number);
             this.borrowers.add(borrower);
         
@@ -62,5 +62,16 @@ public class BorrowerCollection
           if(tempBorrowerN.getNumber() == number ){
             return tempBorrowerN;}
         }return null;
+    }
+    
+    /**
+     * 임시 데이터셋
+     */
+    public void addSampleBorrowers(){
+        this.borrowers.add(new Borrower("홍길동", 1));
+        this.borrowers.add(new Borrower("김철수", 2));
+        this.borrowers.add(new Borrower("이영희", 3));
+        this.borrowers.add(new Borrower("박지민", 4));
+        this.borrowers.add(new Borrower("박동길", 5));
     }
 }

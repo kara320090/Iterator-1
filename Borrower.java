@@ -1,5 +1,3 @@
-package object;
-
 /**
  * 이용자 객체를 생성하기 위한 클래스
  * 이름과 고유번호를 가진다.
@@ -20,22 +18,23 @@ public class Borrower
         this.name = name;
         this.number = number;
     }
-    /** 이용자의 이름을 반환하는 동작을 수행한다.
-     * 
-     */
-    public String getName(){
-        return this.name;
-    }
     /** 이용자의 고유번호를 반환하는 동작을 수행한다.
      * 
      */
     public int getNumber(){
         return this.number;
     }
+    /**
+     * 화면에 책의 속성값(제목, 저자, 목록번호)을 문자열로 반환한다.
+     */
+    @Override
+    public String toString() {
+        return "이름: " + this.name + ", 고유번호: " + this.number;
+    }
     /** 책 대출 권수를 카운트하기 위한 메소드이다.
      * 책을 대출할 때 실행되며 값을 1씩 더한다.
      */
-    public void loanCount(){
+    public void bookLoanCount(){
         this.bookLoanCount++;
     }
     /** 책 대출 권수를 카운트하기 위한 메소드이다.
@@ -45,12 +44,12 @@ public class Borrower
     public void returnCount(){
         if(bookLoanCount>0){
             this.bookLoanCount--;
-        }    
+        }
     }
     /** 카운트한 책 대출 권수를 통해서 추가 대출 가능 여부를 확인하기 위한 메소드이다.
      * 책을 대출할 때 사용된다.
      */
-    public boolean check(){
+    public boolean countCheck(){
         if(bookLoanCount<bookLoanCount_MAX){
             return true;
         }else{

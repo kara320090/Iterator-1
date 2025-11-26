@@ -18,17 +18,17 @@ import java.util.Iterator;
  * @author (작성자 이름)
  * @version (2025.11.08)
  */
-public class LoanCollection {
+public class LoanDB {
     
     private Scanner scan;
-    private BookCollection bookDB;
-    private BorrowerCollection userDB;
+    private BookDB bookDB;
+    private BorrowerDB userDB;
     private ArrayList<Loan> loanDB;
 
     /** LoanCollection 클래스의 객체 생성자
      * 
      */
-    public LoanCollection(Scanner scan, BookCollection bookDB, BorrowerCollection userDB) {
+    public LoanDB(Scanner scan, BookDB bookDB, BorrowerDB userDB) {
         this.scan = scan;
         this.bookDB = bookDB;
         this.userDB = userDB;

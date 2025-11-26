@@ -5,7 +5,7 @@ import java.util.Calendar;
  * @author (작성자 이름)
  * @version (버전 번호 또는 작성한 날짜)
  */
-public class History
+public class History 
 {
     private Calendar returnDate;
     private Loan loan;
@@ -16,6 +16,7 @@ public class History
      */
     public History(Loan loan){
         this.loan = loan;
+        this.returnDate = Calendar.getInstance();
     }
 
     /** 책 대출 일자를 반환하는 메소드이다.

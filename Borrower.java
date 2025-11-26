@@ -5,7 +5,7 @@
  * @author (작성자 이름)
  * @version (2025.11.08)
  */
-public class Borrower
+public class Borrower implements Comparable<Borrower>
 {   
     private String name;
     private int number;
@@ -55,5 +55,12 @@ public class Borrower
         }else{
             return false;
         }
+    }
+    /** 고유번호(number) 기준으로 이용자 객체를 오름차순 정렬하기 위한 메소드이다.
+     *
+     */
+    @Override
+    public int compareTo(Borrower other) {
+        return Integer.compare(this.number, other.number);
     }
 }

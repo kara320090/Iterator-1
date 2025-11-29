@@ -8,16 +8,16 @@ import java.util.TreeSet;
  */
 public class HisDB
 {
-    private TreeSet<History> historys;
+    private TreeSet<History> histories;
     public HisDB(){
-        this.historys = new TreeSet<>();
+        this.histories = new TreeSet<>();
 
     }
     public void RegisterOneHis(History history){
-        historys.add(history);
+        histories.add(history);
     }
     public History findHistory(int number){
-        for(History tempHis : historys){
+        for(History tempHis : histories){
             if(tempHis.getLoan().getBorrower().getNumber() == number){
                 return tempHis;
             }

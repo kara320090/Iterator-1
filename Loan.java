@@ -8,7 +8,7 @@ import java.util.Calendar;
  * @author (작성자 이름)
  * @version (2025.11.08)
  */
-public class Loan
+public class Loan implements Comparable<Loan>
 {
     private Calendar loanDate;
     private Calendar dueDate;
@@ -56,5 +56,13 @@ public class Loan
      */
     public Borrower getBorrower(){
         return this.borrower;
+    }
+     @Override
+    public int compareTo(Loan other) {
+        // Loan이 정렬될 때 → 해당 Loan이 가진 Book의 목록번호 기준 정렬
+        return Integer.compare(
+            this.book.getCatalogueNumber(),
+            other.book.getCatalogueNumber()
+        );
     }
 }

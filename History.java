@@ -5,7 +5,7 @@ import java.util.Calendar;
  * @author (작성자 이름)
  * @version (버전 번호 또는 작성한 날짜)
  */
-public class History 
+public class History implements Comparable<History>
 {
     private Calendar returnDate;
     private Loan loan;
@@ -32,5 +32,12 @@ public class History
     @Override
     public String toString() {
         return "대출일시: " + this.loan.getLoanDate() + "대출자: " + loan.getBorrower().toString() + "대출서적: " + loan.getBook().toString() ;
+    }
+    @Override
+    public int compareTo(History other) {
+        return Integer.compare(this.loan.getBook().getCatalogueNumber(),other.loan.getBook().getCatalogueNumber());
+    }
+    public Loan getLoan() {  
+        return loan;
     }
 }

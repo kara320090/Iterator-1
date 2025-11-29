@@ -10,16 +10,12 @@ import java.util.TreeSet;
  * @version (2025.11.08)
  */
 public class LoanDB {
-    private BookDB bookDB;
-    private BorrowerDB borrowerDB;
     private TreeSet<Loan> loanDB;
 
     /** LoanCollection 클래스의 객체 생성자
      * 
      */
     public LoanDB(BookDB bookDB, BorrowerDB borrowerDB) {
-        this.bookDB = bookDB;
-        this.borrowerDB = borrowerDB;
         this.loanDB = new TreeSet<>();
     }
     
@@ -29,9 +25,9 @@ public class LoanDB {
     
     public Loan findLoan(int catalogueNumber){
         for(Loan temploan:loanDB){
-        if(temploan.getBook().getCatalogueNumber()==catalogueNumber){
-            return temploan;
-        }
+            if(temploan.getBook().getCatalogueNumber()==catalogueNumber){
+                return temploan;
+            }
         }
         return null;
     }

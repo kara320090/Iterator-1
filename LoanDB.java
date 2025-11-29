@@ -15,7 +15,7 @@ public class LoanDB {
     /** LoanCollection 클래스의 객체 생성자
      * 
      */
-    public LoanDB(BookDB bookDB, BorrowerDB borrowerDB) {
+    public LoanDB() {
         this.loanDB = new TreeSet<>();
     }
     

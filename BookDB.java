@@ -20,6 +20,10 @@ public class BookDB
         this.books = new TreeSet<>();
     }
     
+    public void add(Book book) {
+        books.add(book);
+    }
+    
     /** 목록번호를 사용해서 책을 찾는 메소드이다.
      * 메소드가 실행되면 받아온 책 리스트에서 책 객체를 하나씩 꺼내고 
      * 받아온 목록번호와 저장된 책의 목록 번호를 비교하여 같으면 해당 책을 반환하고 다르면 NULL을 반환한다.

@@ -19,6 +19,10 @@ public class BorrowerDB
         this.borrowers = new TreeSet<>();
     }
     
+    public void add(Borrower borrower) {
+        borrowers.add(borrower);
+    }
+
     /** 고유번호를 사용해서 이용자를 찾는 메소드이다.
      * 메소드가 실행되면 받아온 이용자 리스트에서 이용자 객체를 하나씩 꺼내고 
      * 받아온 고유번호와 저장된 이용자의 고유 번호를 비교하여 같으면 해당 이용자를 반환하고 다르면 NULL을 반환한다.

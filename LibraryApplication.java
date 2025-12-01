@@ -9,9 +9,7 @@ public class LibraryApplication
 {
     private String libraryName;
     private BorrowerDB borrowerDB;
-    private Borrower borrower;
     private BookDB bookDB;
-    private Book book;
     
     public LibraryApplication(String name){
         libraryName = name;
@@ -35,7 +33,6 @@ public class LibraryApplication
     
     // UC#3 : 대출가능한 책 목록 Display
     public String displayBookForLoan(){
-        
         return "대출가능한 책 목록을 Display하였습니다.";
     }
     

@@ -1,5 +1,5 @@
 import java.util.TreeSet;
-
+import java.util.Iterator;
 /**
  * 대출/반납 등 작업에 사용하는 동작들이 들어있는 클래스.
  * 대출 기능을 수행하며 대출 기록을 저장한다.
@@ -24,12 +24,24 @@ public class LoanDB {
     }
     
     public Loan findLoan(int catalogueNumber){
-        for(Loan temploan:loanDB){
-            if(temploan.getBook().getCatalogueNumber()==catalogueNumber){
-                return temploan;
+        Iterator<Loan> it = loanDB.iterator();
+        while(it.hasNext()){
+            Loan l = it.next();
+            if(l.getBook().getCatalogueNumber() == catalogueNumber){
+                return l;
             }
         }
         return null;
+    }
+
+    // ★ LibraryApplication에서 iterator로 대출목록 순회
+    public Iterator<Loan> iterator(){
+        return loanDB.iterator();
+    }
+
+    // ★ 반납 후 해당 Loan 제거
+    public void removeLoan(Loan loan){
+        loanDB.remove(loan);
     }
     
 }

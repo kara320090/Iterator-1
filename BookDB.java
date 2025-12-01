@@ -1,5 +1,5 @@
 import java.util.TreeSet;
-
+import java.util.Iterator;
 /**
  * 책 관리(등록, 삭제 등)를 위한 동작을 가지고 있는 클래스이다
  * 책을 객체 단위로 생성하며 이를 ArrayList 형태로 저장하여 책 객체들을 관리한다.
@@ -29,11 +29,21 @@ public class BookDB
      * 받아온 목록번호와 저장된 책의 목록 번호를 비교하여 같으면 해당 책을 반환하고 다르면 NULL을 반환한다.
      * 책의 저장유무 확인, 대출, 반납 등의 기능에서 사용할 수 있다.
      */
+        // catalogueNumber로 Book 찾기
     public Book findBook(int catalogueNumber){
-        for(Book tempbookCN:this.books){
-            if(tempbookCN.getCatalogueNumber()==(catalogueNumber)){
-                return tempbookCN;}
-        }return null;
+        Iterator<Book> it = books.iterator();
+        while(it.hasNext()){
+            Book b = it.next();
+            if(b.getCatalogueNumber() == catalogueNumber){
+                return b;
+            }
+        }
+        return null;
+    }
+
+    // ★ LibraryApplication에서 책 목록을 돌릴 때 사용
+    public Iterator<Book> iterator(){
+        return books.iterator();
     }
     
     /**

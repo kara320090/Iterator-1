@@ -1,5 +1,5 @@
 import java.util.TreeSet;
-
+import java.util.Iterator;
 /**
  * 이용자 관리(등록, 삭제 등)를 위한 동작을 가지고 있는 클래스이다
  * 이용자를 객체 단위로 생성하며 이를 ArrayList 형태로 저장하여 이용자 객체들을 관리한다.
@@ -29,12 +29,20 @@ public class BorrowerDB
      * 이용자의 등록유무 확인, 대출, 반납 등의 기능에서 사용할 수 있다.
      */
     public Borrower findBorrower(int number){
-        for(Borrower tempBorrowerN:this.borrowers){
-          if(tempBorrowerN.getNumber() == number ){
-            return tempBorrowerN;}
-        }return null;
+        Iterator<Borrower> it = borrowers.iterator();
+        while(it.hasNext()){
+            Borrower b = it.next();
+            if(b.getNumber() == number){
+                return b;
+            }
+        }
+        return null;
     }
-    
+
+    // ★ LibraryApplication에서 사용하기 위한 iterator
+    public Iterator<Borrower> iterator(){
+        return borrowers.iterator();
+    }
     /**
      * 임시 데이터셋
      */

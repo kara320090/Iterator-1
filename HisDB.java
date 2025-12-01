@@ -1,5 +1,5 @@
 import java.util.TreeSet;
-
+import java.util.Iterator;
 /**
  * HisDb 클래스의 설명을 작성하세요.
  *
@@ -17,11 +17,18 @@ public class HisDB
         histories.add(history);
     }
     public History findHistory(int number){
-        for(History tempHis : histories){
-            if(tempHis.getLoan().getBorrower().getNumber() == number){
-                return tempHis;
+        Iterator<History> it = histories.iterator();
+        while(it.hasNext()){
+            History h = it.next();
+            if(h.getLoan().getBorrower().getNumber() == number){
+                return h;
             }
         }
         return null;
+    }
+
+    // ★ LibraryApplication에서 iterator로 이력 순회
+    public Iterator<History> iterator(){
+        return histories.iterator();
     }
 }

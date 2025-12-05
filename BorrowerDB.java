@@ -4,8 +4,8 @@ import java.util.Iterator;
  * 이용자 관리(등록, 삭제 등)를 위한 동작을 가지고 있는 클래스이다
  * 이용자를 객체 단위로 생성하며 이를 ArrayList 형태로 저장하여 이용자 객체들을 관리한다.
  *
- * @author (작성자 이름)
- * @version (2025.11.08)
+ * @author (1팀)
+ * @version (2025.12.5)
  */
 public class BorrowerDB
 {
@@ -39,10 +39,6 @@ public class BorrowerDB
         return null;
     }
 
-    // ★ LibraryApplication에서 사용하기 위한 iterator
-    public Iterator<Borrower> iterator(){
-        return borrowers.iterator();
-    }
     /**
      * 임시 데이터셋
      */

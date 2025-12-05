@@ -2,8 +2,8 @@
  * 이용자 객체를 생성하기 위한 클래스
  * 이름과 고유번호를 가진다.
  *
- * @author (작성자 이름)
- * @version (2025.11.08)
+ * @author (1팀)
+ * @version (2025.12.5 )
  */
 public class Borrower implements Comparable<Borrower>
 {   

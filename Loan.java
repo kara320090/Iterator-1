@@ -1,12 +1,12 @@
 import java.util.Calendar;
 /**
- * 대출을 위한 클래스이다. 
- * 책 객체, 이용자 객체를 사용하며 대출 기간을 자체적으로 가지고 있다.
- * 대출 기간을 기준으로 대출일자를 계산해서 책의 반납일자를 계산하며 
- * 책을 대출 가능상태에서 대출중 상태로 변경한다.
+ * 대출 정보를 관리하는 클래스이다.
+ * 책 객체, 이용자 객체, 대출일자, 반납예정일자를 속성으로 가지며,
+ * 대출 기간(10일)을 기준으로 반납예정일자를 자동으로 계산한다.
+ * 대출 객체 생성 시 책의 상태를 대출중으로 변경한다.
  *
- * @author (작성자 이름)
- * @version (2025.11.08)
+ * @author (1팀)
+ * @version (2025.12.5)
  */
 public class Loan implements Comparable<Loan>
 {
@@ -15,29 +15,43 @@ public class Loan implements Comparable<Loan>
     private final int returnPeriodDate = 10; // 대출 기간을 저장해두는 변수. 초기값 = 10일
     private Book book;
     private Borrower borrower;
-    /** 책의 대출 객체를 생성하는 메소드이다.
-     * 객체를 생성하면서 반납일자를 계산하는 메소드를 같이 실행하여 저장한다.
-     * 반납일자를 계산하는 메소드 속에는 책의 대출 상태를 대출중으로 바꾸는 메소드가 추가되어있어서 같이 실행된다.
+    
+    /**
+     * 대출 객체를 생성하는 생성자이다.
+     * 객체를 생성하면서 대출일자와 반납예정일자를 계산하고,
+     * 책의 상태를 대출중으로 변경한다.
+     * 
+     * @param book 대출할 책 객체
+     * @param borrower 대출하는 이용자 객체
      */
     public Loan(Book book, Borrower borrower){
         this.book = book;
         this.borrower = borrower;
         setReturnDate();
     }
-    /** 책 대출 일자를 반환하는 메소드이다.
+    
+    /**
+     * 대출 일자를 반환하는 메소드이다.
      * 
+     * @return 대출 일자 (Calendar 객체)
      */
     public Calendar getLoanDate() {
         return loanDate;
     }
-    /** 책 반납 일자를 반환하는 메소드이다.
+    
+    /**
+     * 반납 예정일자를 반환하는 메소드이다.
      * 
+     * @return 반납 예정일자 (Calendar 객체)
      */
     public Calendar getDueDate() {
         return dueDate;
     }
-    /** 대출 객체를 생성할 때 현재 날짜에 10일 뒤인 대출날짜를 계산하여 저장하고 책의 상태를 대출중으로 바꾸는 동작을 수행한다.
-     * 
+    
+    /**
+     * 대출일자와 반납예정일자를 설정하는 메소드이다.
+     * 현재 날짜를 대출일자로 설정하고, 대출 기간(10일)을 더해 반납예정일자를 계산한다.
+     * 동시에 책의 상태를 대출중(false)으로 변경한다.
      */
     public void setReturnDate(){
         this.loanDate = Calendar.getInstance();
@@ -45,21 +59,34 @@ public class Loan implements Comparable<Loan>
         dueDate.add(Calendar.DAY_OF_MONTH, returnPeriodDate);
         this.book.changeStatus(false);
     }
-    /**책 객체를 반환하는 메소드이다.
+    
+    /**
+     * 대출된 책 객체를 반환하는 메소드이다.
      * 
+     * @return 대출된 책 객체
      */
     public Book getBook() {
         return this.book;
     }
-    /** 이용자 객체를 반환하는 메소드이다.
+    
+    /**
+     * 대출한 이용자 객체를 반환하는 메소드이다.
      * 
+     * @return 대출한 이용자 객체
      */
     public Borrower getBorrower(){
         return this.borrower;
     }
-     @Override
+    
+    /**
+     * TreeSet에서 정렬 기준을 정의하는 메소드이다.
+     * 대출 객체는 해당 대출이 가진 책의 목록번호를 기준으로 오름차순 정렬된다.
+     * 
+     * @param other 비교할 다른 대출 객체
+     * @return 비교 결과 (음수: 작음, 0: 같음, 양수: 큼)
+     */
+    @Override
     public int compareTo(Loan other) {
-        // Loan이 정렬될 때 → 해당 Loan이 가진 Book의 목록번호 기준 정렬
         return Integer.compare(
             this.book.getCatalogueNumber(),
             other.book.getCatalogueNumber()

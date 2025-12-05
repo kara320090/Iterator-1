@@ -1,42 +1,65 @@
 import java.util.Calendar;
 /**
- * History 클래스의 설명을 작성하세요.
+ * 반납 이력을 관리하는 클래스이다.
+ * 대출 객체와 반납일자를 속성으로 가지며,
+ * 반납된 책의 정보를 기록하여 이용자의 반납 이력을 추적할 수 있다.
  *
- * @author (작성자 이름)
- * @version (버전 번호 또는 작성한 날짜)
+ * @author (1팀)
+ * @version (2025.12.5)
  */
 public class History implements Comparable<History>
 {
     private Calendar returnDate;
     private Loan loan;
 
-    /** 책의 대출 객체를 생성하는 메소드이다.
-     * 객체를 생성하면서 반납일자를 계산하는 메소드를 같이 실행하여 저장한다.
-     * 반납일자를 계산하는 메소드 속에는 책의 대출 상태를 대출중으로 바꾸는 메소드가 추가되어있어서 같이 실행된다.
+    /**
+     * 반납 이력 객체를 생성하는 생성자이다.
+     * 대출 객체를 받아 반납 이력을 생성하고, 현재 시간을 반납일자로 저장한다.
+     * 
+     * @param loan 반납된 대출 객체
      */
     public History(Loan loan){
         this.loan = loan;
         this.returnDate = Calendar.getInstance();
     }
 
-    /** 책 대출 일자를 반환하는 메소드이다.
+    /**
+     * 반납일자를 반환하는 메소드이다.
      * 
+     * @return 반납일자 (Calendar 객체)
      */
     public Calendar getReturnDate() {
         return returnDate;
     }
     
     /**
-     * 화면에 책의 속성값(제목, 저자, 목록번호)을 문자열로 반환한다.
+     * 반납 이력 정보를 문자열로 반환하는 메소드이다.
+     * 대출일시, 대출자, 대출서적 정보를 포함한다.
+     * 
+     * @return 반납 이력 정보 문자열
      */
     @Override
     public String toString() {
         return "대출일시: " + this.loan.getLoanDate() + "대출자: " + loan.getBorrower().toString() + "대출서적: " + loan.getBook().toString() ;
     }
+    
+    /**
+     * TreeSet에서 정렬 기준을 정의하는 메소드이다.
+     * 반납 이력은 책의 목록번호를 기준으로 오름차순 정렬된다.
+     * 
+     * @param other 비교할 다른 반납 이력 객체
+     * @return 비교 결과 (음수: 작음, 0: 같음, 양수: 큼)
+     */
     @Override
     public int compareTo(History other) {
         return Integer.compare(this.loan.getBook().getCatalogueNumber(),other.loan.getBook().getCatalogueNumber());
     }
+    
+    /**
+     * 대출 객체를 반환하는 메소드이다.
+     * 
+     * @return 대출 객체
+     */
     public Loan getLoan() {  
         return loan;
     }

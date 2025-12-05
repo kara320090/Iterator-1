@@ -19,6 +19,10 @@ public class BorrowerDB
         this.borrowers = new TreeSet<>();
     }
     
+    /** BorrowerDB에 Borrower 객체를 추가하는 메소드이다. 
+     * 
+     * @param  Borrower 객체 1개
+     */
     public void add(Borrower borrower) {
         borrowers.add(borrower);
     }

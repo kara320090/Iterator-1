@@ -20,6 +20,10 @@ public class BookDB
         this.books = new TreeSet<>();
     }
     
+    /** BookDB에 Book 객체를 추가하는 메소드이다. 
+     * 
+     * @param  Book 객체 1개
+     */
     public void add(Book book) {
         books.add(book);
     }

@@ -1,3 +1,13 @@
+import Object.Borrower;
+import Object.Book;
+import Object.Loan;
+import Object.History;
+
+import DB.BorrowerDB;
+import DB.BookDB;
+import DB.LoanDB;
+import DB.HisDB;
+
 import java.util.Iterator;
 /**
  * 도서관 시스템의 메인 애플리케이션 클래스이다.

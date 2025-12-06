@@ -1,3 +1,4 @@
+package Object;
 import java.util.Calendar;
 /**
  * 대출 정보를 관리하는 클래스이다.

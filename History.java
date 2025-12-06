@@ -5,7 +5,7 @@ import java.util.Calendar;
  * 반납된 책의 정보를 기록하여 이용자의 반납 이력을 추적할 수 있다.
  *
  * @author (1팀)
- * @version (2025.12.5)
+ * @version (2025.12.7)
  */
 public class History implements Comparable<History>
 {

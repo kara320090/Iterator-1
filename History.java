@@ -52,7 +52,7 @@ public class History implements Comparable<History>
      */
     @Override
     public int compareTo(History other) {
-        return Integer.compare(this.loan.getBook().getCatalogueNumber(),other.loan.getBook().getCatalogueNumber());
+        return other.returnDate.compareTo(this.returnDate);
     }
     
     /**

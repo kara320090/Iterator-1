@@ -1,3 +1,4 @@
+ 
 import Object.Borrower;
 import Object.Book;
 import Object.Loan;
@@ -15,7 +16,7 @@ import java.util.Iterator;
  * 각 데이터베이스(BorrowerDB, BookDB, LoanDB, HisDB)를 통해 전체 도서관 업무를 처리한다.
  *
  * @author (1팀)
- * @version (2025.12.5)
+ * @version (2025.12.8)
  */
 public class LibraryApplication 
 {
@@ -38,6 +39,9 @@ public class LibraryApplication
         this.bookDB = new BookDB();
         this.loanDB = new LoanDB();
         this.hisDB = new HisDB();
+        
+        this.bookDB.addSampleBooks();
+        this.borrowerDB.addSampleBorrowers();
     }
     
     /**
@@ -49,11 +53,14 @@ public class LibraryApplication
      * @return 등록 완료 메시지
      */
     public String registerOneBorrower(String name, int number){
-        Borrower user = new Borrower(name, number);
-        borrowerDB.add(user);
-        return "이용자(" + name + ") 등록작업을 완료하였습니다.";
+        if(borrowerDB.findBorrower(number)==null){
+            Borrower user = new Borrower(name, number);
+            borrowerDB.add(user);
+            return "이용자(" + name + ") 등록작업을 완료하였습니다.";
+        }else{
+            return "해당 고유번호은 이미 등록되어 있습니다. 다른 고유번호를 사용해주세요.";
+        }
     }
-    
     /**
      * UC#2 : 책을 등록하는 메소드이다.
      * 입력받은 제목, 저자, 목록번호로 새로운 책 객체를 생성하고 책 데이터베이스에 추가한다.
@@ -64,9 +71,13 @@ public class LibraryApplication
      * @return 등록 완료 메시지
      */
     public String registerOneBook(String title, String author, int catalogueNumber){
-        Book book = new Book(title, author, catalogueNumber);
-        bookDB.add(book);
-        return "책(" + title + ", " + author + ", " + catalogueNumber + ") 등록작업을 완료하였습니다.";
+        if(bookDB.findBook(catalogueNumber)==null){
+            Book book = new Book(title, author, catalogueNumber);
+            bookDB.add(book);
+            return "책(" + title + ", " + author + ", " + catalogueNumber + ") 등록작업을 완료하였습니다.";
+        }else{
+            return "해당 고유번호은 이미 등록되어 있습니다. 다른 고유번호를 사용해주세요.";
+        }
     }
     
     /**

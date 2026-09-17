@@ -1,41 +1,165 @@
-# 도서관 업무 로직 | Iterator·TreeSet 실습
+# Library Domain Logic | Iterator & TreeSet 기반 도서관 업무 도메인 모델
 
-도서·이용자·대출·반납 이력을 객체로 나누고, 컬렉션 순회로 도서관 업무를 구현한 Java 학습 프로젝트입니다.
+> Java 컬렉션 프레임워크의 `TreeSet`과 `Comparable` 인터페이스로 정렬된 도서/대출 엔티티를 관리하고, `Iterator` 패턴을 적용하여 대출 가능 여부 판정, 대출 트랜잭션, 반납 및 이력 아카이빙을 캡슐화한 객체지향 도메인 설계 프로젝트
 
-**Java · Iterator · TreeSet · Comparable · BlueJ**
+---
 
-## 주요 기능
+[시스템 개요 및 빠른 시작](#1-프로젝트-개요-project-overview)
+- [핵심 설계 가치 (OOP & Iterator Pattern)](#2-핵심-설계-가치-oop--iterator-pattern)
+- [코어 비즈니스 트랜잭션 흐름](#3-코어-비즈니스-트랜잭션-흐름-core-pipeline--mechanics)
+- [도메인 모델 및 클래스 계층도](#4-도메인-모델-및-클래스-계층도-technical-architecture)
+- [소스 코드 구현 명세](#5-소스-코드-구현-명세-core-architecture--implementation)
+- [핵심 테크니컬 하이라이트](#6-핵심-테크니컬-하이라이트-technical-highlights)
+- [BlueJ 객체 지향 실행 가이드](#7-bluej-객체-지향-실행-가이드-system-requirements)
 
-- 이용자·도서 등록과 중복 식별자 확인
-- 대출 가능한 도서와 대출 중인 도서 목록 조회
-- 이용자·도서 존재 여부, 대출 가능 권수와 상태를 확인한 대출 처리
-- 반납 시 대출 기록 제거, 도서 상태 변경과 반납 이력 저장
-- 이용자별 반납 이력 조회
+---
 
-## 설계
+### 1. 프로젝트 개요 (Project Overview)
 
-| 구성 | 역할 |
-|---|---|
-| [LibraryApplication.java](LibraryApplication.java) | 도서관 업무 흐름 통합 |
-| [DB](DB/) | 도서·이용자·대출·이력 저장과 조회 |
-| [Object](Object/) | `Book`, `Borrower`, `Loan`, `History` 도메인 객체 |
+* **도메인 / 분야:** 객체지향 도메인 모델링(Domain Modeling) · Iterator 패턴 · TreeSet 자가 정렬 컬렉션
+* **플랫폼 / 런타임:** Java Standard Edition (SE) / BlueJ 객체 벤치 실행 환경
+* **핵심 도메인 객체:** `Book`, `Borrower`, `Loan`, `History`, `DB`, `LibraryApplication`
+* **핵심 기술 스택:** `Java 11+` · `TreeSet` · `Comparable<T>` · `Iterator<T>` · `BlueJ`
 
-`TreeSet`과 객체의 `Comparable` 구현으로 정렬 기준을 정의하고, `Iterator`로 조건에 맞는 객체를 찾습니다.
+---
 
-## 실행·확인 방법
+### 2. 핵심 설계 가치 (OOP & Iterator Pattern)
 
-이 저장소에는 `main` 진입점이 없습니다. BlueJ에서 `package.bluej`를 열고 전체 클래스를 컴파일한 뒤 `LibraryApplication(String name)` 객체를 생성해 메서드를 호출합니다.
+* **USP-1. 자가 정렬(Self-Sorting) 컬렉션: `TreeSet`과 `Comparable` 구현**
+  * 도서(청구기호 기준) 및 이용자(등록번호 기준) 객체에 `Comparable`을 구현하여, 삽입 시점에 자동으로 정렬된 상태를 유지하고 $O(\log N)$ 탐색 보장.
+* **USP-2. 이터레이터(Iterator) 기반 조건부 필터링 및 대출/반납 라이프사이클**
+  * 도서 대출 시 `Iterator`를 순회하며 대출 가능(Available) 상태를 검증하고, 반납 시 `Loan` 객체를 파기함과 동시에 불변 `History` 엔티티로 승격 아카이빙.
+* **USP-3. 상태 패턴 준수 및 다형성 도메인 분리**
+  * 도서의 대출 상태 플래그 변경, 이용자별 최대 대출 허용 한도 검증 로직을 도메인 레이어에 캡슐화.
 
-확인할 흐름:
+---
 
-1. 이용자와 도서 등록
-2. `displayBookForLoan()`으로 대출 가능 목록 조회
-3. `loanOneBook(number, catalogueNumber)` 호출
-4. `displayBookOnLoan()`으로 상태 변경 확인
-5. `returnOneBook(catalogueNumber)` 호출 후 이력 확인
+### 3. 코어 비즈니스 트랜잭션 흐름 (Core Pipeline & Mechanics)
 
-`DB` 클래스의 샘플 자료와 중복 ID 검증을 고려해 새로운 식별자를 사용합니다.
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Admin as 사서 (BlueJ Test Bench)
+    participant App as LibraryApplication
+    participant DB as DB Repository
+    participant Book as Book Entity
+    participant Hist as History Archive
 
-## 학습 범위
+    Admin->>App: loanOneBook(borrowerId, catalogueNum)
+    App->>DB: findBook(catalogueNum)
+    DB-->>App: Book (isAvailable=true)
+    App->>DB: findBorrower(borrowerId)
+    DB-->>App: Borrower (canBorrow=true)
+    App->>Book: setOnLoan(true)
+    App->>DB: addLoan(Loan)
+    App-->>Admin: 대출 승인 완료
 
-객체 관계, 컬렉션 정렬과 순회, 대출 전후 상태 변경을 다룹니다. 화면은 포함하지 않으며 데이터는 실행 중 메모리에 저장됩니다. GUI 연동 코드는 [programming-2](https://github.com/kara320090/programming-2)에서 확인할 수 있습니다.
+    Admin->>App: returnOneBook(catalogueNum)
+    App->>Book: setOnLoan(false)
+    App->>DB: removeLoan(catalogueNum)
+    App->>Hist: createHistoryRecord(catalogueNum, borrowerId)
+    App-->>Admin: 반납 처리 및 이력 적재 완료
+```
+
+---
+
+### 4. 도메인 모델 및 클래스 계층도 (Technical Architecture)
+
+```mermaid
+classDiagram
+    direction TB
+    class Comparable~T~ {
+        <<Interface>>
+        +compareTo(T o) int
+    }
+
+    class Book {
+        -int catalogueNumber
+        -string title
+        -string author
+        -boolean onLoan
+        +isOnLoan() boolean
+        +compareTo(Book o) int
+    }
+
+    class Borrower {
+        -int number
+        -string name
+        +compareTo(Borrower o) int
+    }
+
+    class Loan {
+        -Book book
+        -Borrower borrower
+        +getDueDate() Date
+    }
+
+    class History {
+        -int catalogueNumber
+        -int borrowerNumber
+        -Date returnDate
+    }
+
+    class DB {
+        -TreeSet~Book~ books
+        -TreeSet~Borrower~ borrowers
+        -TreeSet~Loan~ loans
+        -TreeSet~History~ histories
+        +findBook(catNum) Book
+        +addLoan(loan) void
+    }
+
+    class LibraryApplication {
+        -DB db
+        +loanOneBook(borrowerNum, catNum)
+        +returnOneBook(catNum)
+        +displayBookForLoan()
+        +displayBookOnLoan()
+    }
+
+    Comparable <|.. Book
+    Comparable <|.. Borrower
+    DB *-- Book
+    DB *-- Borrower
+    DB *-- Loan
+    DB *-- History
+    LibraryApplication *-- DB
+```
+
+---
+
+### 5. 소스 코드 구현 명세 (Core Architecture & Implementation)
+
+```
+Iterator-1/
+├── LibraryApplication.java            # 전체 비즈니스 오케스트레이터 (대출/반납/조회 메서드)
+├── DB/
+│   └── DB.java                        # TreeSet 기반 인메모리 도메인 저장소 및 Iterator 검색 엔진
+├── Object/
+│   ├── Book.java                      # 도서 엔티티 (청구기호 정렬 및 대출 상태 관리)
+│   ├── Borrower.java                  # 이용자 엔티티 (회원번호 정렬)
+│   ├── Loan.java                      # 활성 대출 트랜잭션 복합 객체 (Book + Borrower)
+│   └── History.java                   # 반납 완료된 불변 감사(Audit) 로그 엔티티
+└── package.bluej                      # BlueJ IDE 프로젝트 및 비주얼 클래스 다이어그램 메타
+```
+
+---
+
+### 6. 핵심 테크니컬 하이라이트 (Technical Highlights)
+
+| 구분 | 적용 기술 및 설계 패턴 | 구현 효과 및 엔지니어링 의사결정 이유 |
+| :--- | :--- | :--- |
+| **정렬 불변성** | `TreeSet<T>` + Red-Black Tree | 별도 정렬 알고리즘 호출 없이도 모든 엔티티를 고유 식별자 순서로 항상 정렬 보장 |
+| **순회 캡슐화** | `Iterator<T>` Pattern | 내부 저장소 구조(`TreeSet`)를 외부에 노출하지 않고 대출 가능 도서만 선택적 순회 |
+| **감사 추적성** | Active Loan vs Inactive History 분리 | 현재 진행 중인 대출과 과거 반납 기록을 명확히 분리하여 데이터 오염 방지 |
+
+---
+
+### 7. BlueJ 객체 지향 실행 가이드 (System Requirements)
+
+#### 요구 사양
+* **IDE:** BlueJ (객체 인스턴스화 및 인터랙티브 메서드 호출에 최적화) 또는 표준 JDK
+* **실행 절차:**
+  1. BlueJ에서 `package.bluej`를 엽니다.
+  2. `LibraryApplication` 클래스를 우클릭하여 `new LibraryApplication("중앙도서관")` 인스턴스를 생성합니다.
+  3. 생성된 객체 인스턴스를 클릭하여 `displayBookForLoan()`, `loanOneBook()`, `returnOneBook()` 메서드를 순차적으로 호출하며 콘솔 로그를 확인합니다.
